@@ -3,6 +3,7 @@ public class Trio implements MenuItem{
     private Sandwich sandwich;
     private Salad salad;
     private Drink drink;
+    private String name;
 
     public Trio(Sandwich sandwich, Salad salad, Drink drink) {
         this.sandwich = sandwich;
@@ -11,18 +12,24 @@ public class Trio implements MenuItem{
     }
 
     public String getName() {
-        return this.sandwich + "/" + this.salad + "/" + this.drink + " Trio";
+        return sandwich.getName() + " / " + salad.getName() + " / " + drink.getName() + " Trio";
     }
 
     public double getPrice() {
-        if (this.sandwich.getPrice() > this.salad.getPrice() && this.sandwich.getPrice() > this.drink.getPrice()) {
-            double highest = this.sandwich.getPrice();
-            if (this.salad.getPrice() > this.drink.getPrice()) {
-                double middle = this.drink.getPrice();
+        double sandwich = this.sandwich.getPrice();
+        double salad = this.salad.getPrice();
+        double drink = this.drink.getPrice();
+
+        if (sandwich > drink) {
+            if (drink > salad) {
+                return sandwich + drink;
+            } else {
+                return sandwich + salad;
             }
-        } else if (this.sandwich.getPrice() > this.salad.getPrice() && !(this.sandwich.getPrice() > this.drink.getPrice())) {
-            double middle = this.sandwich.getPrice();
+        } else if (sandwich > salad) {
+            return sandwich + drink;
+        } else {
+            return salad + drink;
         }
     }
-
 }
